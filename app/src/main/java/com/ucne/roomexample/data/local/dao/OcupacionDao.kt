@@ -20,8 +20,12 @@ interface OcupacionDao {
     """)
     suspend fun find(ocupacionId: Int): OcupacionEntity?
 
-    @Query("SELECT * FROM Ocupaciones")
+    @Query("""SELECT * 
+        FROM Ocupaciones
+        ORDER BY ocupacionId desc
+    """)
     fun getList(): Flow<List<OcupacionEntity>>
+
 
 }
 
