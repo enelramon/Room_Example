@@ -2,7 +2,6 @@ package com.ucne.roomexample.ui.ocupacion
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,19 +10,21 @@ import com.ucne.roomexample.data.repository.OcupacionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.compose.runtime.*
+import com.ucne.roomexample.data.remote.GestionInventarioApi
+import com.ucne.roomexample.data.remote.dto.ArticuloDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 
 data class OcupacionUiState(
-    val ocupacionesList: List<OcupacionEntity> = emptyList()
+    val ocupacionesList: List<OcupacionEntity> = emptyList(),
+    val articulosList: List<ArticuloDto> = emptyList()
 )
 
 @HiltViewModel
 class OcupacionViewModel @Inject constructor(
-    private val ocupacionRepository: OcupacionRepository
+    private val ocupacionRepository: OcupacionRepository,
+    private val gestionInventarioApi: GestionInventarioApi
 ) : ViewModel() {
 
     var descripcion by mutableStateOf("")
@@ -38,10 +39,22 @@ class OcupacionViewModel @Inject constructor(
 
     fun getLista() {
         viewModelScope.launch(Dispatchers.IO) {
-            ocupacionRepository.getList().collect{lista ->
-                uiState.update {
-                    it.copy(ocupacionesList = lista)
-                }
+            //refrescarOcupaciones()
+            getArticulosFromApi()
+        }
+    }
+
+    private  suspend fun getArticulosFromApi(){
+        val articulos = gestionInventarioApi.getList()
+        uiState.update {
+            it.copy(articulosList = articulos)
+        }
+    }
+
+    private suspend fun refrescarOcupaciones() {
+        ocupacionRepository.getList().collect { lista ->
+            uiState.update {
+                it.copy(ocupacionesList = lista)
             }
         }
     }
