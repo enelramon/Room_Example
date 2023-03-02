@@ -16,4 +16,6 @@ class OcupacionRepository @Inject constructor(
     suspend fun find(ocupacionId:Int) = ocupacionDao.find(ocupacionId)
 
     fun getList(): Flow<List<OcupacionEntity>> = ocupacionDao.getList()
+
+
 }

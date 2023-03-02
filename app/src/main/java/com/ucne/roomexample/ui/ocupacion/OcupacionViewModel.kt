@@ -23,8 +23,7 @@ data class OcupacionUiState(
 
 @HiltViewModel
 class OcupacionViewModel @Inject constructor(
-    private val ocupacionRepository: OcupacionRepository,
-    private val gestionInventarioApi: GestionInventarioApi
+    private val ocupacionRepository: OcupacionRepository
 ) : ViewModel() {
 
     var descripcion by mutableStateOf("")
@@ -45,10 +44,10 @@ class OcupacionViewModel @Inject constructor(
     }
 
     private  suspend fun getArticulosFromApi(){
-        val articulos = gestionInventarioApi.getList()
+       /* val articulos = gestionInventarioApi.getList()
         uiState.update {
             it.copy(articulosList = articulos)
-        }
+        }*/
     }
 
     private suspend fun refrescarOcupaciones() {

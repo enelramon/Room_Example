@@ -19,15 +19,7 @@ import com.ucne.roomexample.data.remote.dto.ArticuloDto
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OcupacionScreen(viewModel: OcupacionViewModel = hiltViewModel()) {
-
-    Column(Modifier.fillMaxSize()) {
-        OcupacionBody(viewModel)
-
-        val uiState by viewModel.uiState.collectAsState()
-        //OcupacionListScreen(uiState.ocupacionesList)
-
-        ArticuloListScreen(uiState.articulosList)
-    }
+    OcupacionBody(viewModel)
 }
 
 @Composable
@@ -66,67 +58,6 @@ private fun OcupacionBody(
     }
 }
 
-@Composable
-private fun OcupacionListScreen(ocupacionList: List<OcupacionEntity>) {
-    LazyColumn {
-        items(ocupacionList) { ocupacion ->
-            OcupacionRow(ocupacion)
-        }
-    }
-}
-
-@Composable
-fun ArticuloListScreen(articulos: List<ArticuloDto>) {
-    LazyColumn() {
-        items(articulos) { art ->
-            ArticuloRow(art)
-        }
-    }
-}
-
-@Composable
-fun ArticuloRow(articuloDto: ArticuloDto) {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        Text(text = articuloDto.descripcion, style = MaterialTheme.typography.titleLarge)
-        Text(text = articuloDto.precio.toString())
-    }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun ArticuloListScreenPreview() {
-    var articulos = listOf(
-        ArticuloDto(1, "Disco ssd", "", 100.0, 1),
-        ArticuloDto(1, "Camara", "", 200.0, 1)
-    )
-    ArticuloListScreen(articulos)
-}
-
-@Composable
-private fun OcupacionRow(ocupacion: OcupacionEntity) {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = ocupacion.descripcion,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.weight(3f)
-            )
-            Text(
-                String.format("%.2f", ocupacion.sueldo),
-                textAlign = TextAlign.End,
-                modifier = Modifier.weight(2f)
-            )
-        }
-        Divider(Modifier.fillMaxWidth())
-    }
-}
 
 
 
