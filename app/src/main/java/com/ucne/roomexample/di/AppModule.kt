@@ -6,6 +6,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.ucne.roomexample.data.local.RoomExpampleDb
 import com.ucne.roomexample.data.remote.GestionInventarioApi
+import com.ucne.roomexample.data.remote.TePrestoApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +50,15 @@ object AppModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(GestionInventarioApi::class.java)
+    }
+    @Singleton
+    @Provides
+    fun providesTePrestoApi(moshi: Moshi): TePrestoApi {
+        return Retrofit.Builder()
+            .baseUrl("https://teprestoapi.azurewebsites.net")
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(TePrestoApi::class.java)
     }
 
 }

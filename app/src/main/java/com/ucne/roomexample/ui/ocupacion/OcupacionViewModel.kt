@@ -6,15 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ucne.roomexample.data.local.entity.OcupacionEntity
+import com.ucne.roomexample.data.remote.dto.ArticuloDto
 import com.ucne.roomexample.data.repository.OcupacionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-import com.ucne.roomexample.data.remote.GestionInventarioApi
-import com.ucne.roomexample.data.remote.dto.ArticuloDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class OcupacionUiState(
     val ocupacionesList: List<OcupacionEntity> = emptyList(),
@@ -76,3 +75,5 @@ class OcupacionViewModel @Inject constructor(
     }
 
 }
+
+

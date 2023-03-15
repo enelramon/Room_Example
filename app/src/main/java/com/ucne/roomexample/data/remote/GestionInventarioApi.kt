@@ -7,3 +7,4 @@ interface GestionInventarioApi {
     @GET("/api/articulos")
     suspend fun getList(): List<ArticuloDto>
 }
+
