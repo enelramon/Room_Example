@@ -7,15 +7,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ucne.roomexample.data.local.entity.OcupacionEntity
+import com.ucne.roomexample.data.remote.dto.OcupacionesDto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OcupacionListScreen(onNewOcupacion: () -> Unit) {
+fun OcupacionListScreen(onNewOcupacion: () -> Unit, viewModel: Ocupaciones2ViewModel = hiltViewModel()) {
     Scaffold(
         modifier = Modifier.fillMaxWidth(),
         topBar = {
@@ -32,17 +36,17 @@ fun OcupacionListScreen(onNewOcupacion: () -> Unit) {
         },
         floatingActionButtonPosition = FabPosition.End
     ) {
-        val ocupacionList = emptyList<OcupacionEntity>()
+        val uiState by viewModel.uiState.collectAsState()
         Box(modifier = Modifier
             .fillMaxSize()
             .padding(it)) {
-            OcupacionListBody(ocupacionList)
+            OcupacionListBody(uiState.ocupaciones)
         }
     }
 }
 
 @Composable
-fun OcupacionListBody(ocupacionList: List<OcupacionEntity>) {
+fun OcupacionListBody(ocupacionList: List<OcupacionesDto>) {
     Column(modifier = Modifier.fillMaxWidth()) {
         LazyColumn {
             items(ocupacionList) { ocupacion ->
@@ -53,7 +57,7 @@ fun OcupacionListBody(ocupacionList: List<OcupacionEntity>) {
 }
 
 @Composable
-fun OcupacionRow(ocupacion: OcupacionEntity) {
+fun OcupacionRow(ocupacion: OcupacionesDto) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -81,6 +85,7 @@ fun OcupacionRow(ocupacion: OcupacionEntity) {
     }
 }
 
+/*
 @Preview(showSystemUi = true)
 @Composable
 fun OcupacionListPreview() {
@@ -89,4 +94,4 @@ fun OcupacionListPreview() {
         OcupacionEntity(2, "Diseñador", 2000.0)
     )
     OcupacionListBody(ocupacionList)
-}
+}*/

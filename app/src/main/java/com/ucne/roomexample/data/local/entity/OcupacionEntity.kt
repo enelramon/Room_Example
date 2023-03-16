@@ -15,7 +15,7 @@ data class OcupacionEntity(
 
 fun OcupacionEntity.toOcupacionDto(): OcupacionesDto {
     return OcupacionesDto(
-        ocupacionId = this.ocupacionId ?: 0,
+        ocupacionId = this.ocupacionId?:0,
         descripcion = this.descripcion,
         sueldo = this.sueldo
     )

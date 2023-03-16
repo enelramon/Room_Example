@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ucne.roomexample.data.remote.dto.OcupacionesDto
 import com.ucne.roomexample.data.repository.Ocupaciones2Repository
 import com.ucne.roomexample.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -14,6 +15,7 @@ data class OcupacionesListState(
     val error: String = ""
 )
 
+@HiltViewModel
 class Ocupaciones2ViewModel @Inject constructor(
     private val ocupaciones2Repository: Ocupaciones2Repository
 ) : ViewModel() {

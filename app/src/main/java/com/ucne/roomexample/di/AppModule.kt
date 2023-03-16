@@ -7,6 +7,9 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.ucne.roomexample.data.local.RoomExpampleDb
 import com.ucne.roomexample.data.remote.GestionInventarioApi
 import com.ucne.roomexample.data.remote.TePrestoApi
+import com.ucne.roomexample.data.repository.Ocupaciones2Repository
+import com.ucne.roomexample.data.repository.Ocupaciones2RepositoryImp
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +18,13 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule{
+    @Binds
+    abstract  fun bindOcupacionRepository(impl: Ocupaciones2RepositoryImp): Ocupaciones2Repository
+
+}
 
 @Module
 @InstallIn(SingletonComponent::class)

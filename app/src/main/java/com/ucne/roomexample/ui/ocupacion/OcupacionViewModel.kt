@@ -68,7 +68,9 @@ class OcupacionViewModel @Inject constructor(
             Limpiar()
         }
     }
-
+/*    fun PutOcupacion(){
+        ocupacionRepository.putOcupacion()
+    }*/
     private fun Limpiar() {
         descripcion = ""
         sueldo = ""

@@ -8,5 +8,4 @@ import javax.inject.Inject
 class ArticuloRepository @Inject constructor(
     private val gestionInventarioApi: GestionInventarioApi
 ) {
-
 }
